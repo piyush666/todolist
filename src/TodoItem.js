@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./TodoList.css";
 import FlipMove from "react-flip-move";
+import { Alert, Col } from "react-bootstrap";
 
 class TodoItem extends Component {
     constructor(props) {
@@ -12,20 +12,26 @@ class TodoItem extends Component {
         this.props.delete(key);
     }
     createTask(item) {
-        return <li onClick={() => this.delete(item.key)}
-            key={item.key}>{item.text}</li>
+        return <div key={item.key} >
+            <Alert variant="info"
+                onClick={() => this.delete(item.key)}
+            >
+                {item.text}
+            </Alert>
+        </div>
     }
     render() {
         var todoEntries = this.props.entries;
         var listItem = todoEntries.map(this.createTask);
 
         return (
-            <ul className="theList">
+
+            <Col xs={12}>
                 <FlipMove duration={250} easing="ease-out">
                     {listItem}
                 </FlipMove>
+            </Col>
 
-            </ul>
         );
     }
 }

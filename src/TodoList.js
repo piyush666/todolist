@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
-import "./TodoList.css";
+import { Row, Col, Form, Button } from "react-bootstrap";
 
 class TodoList extends Component {
     constructor(props) {
@@ -32,23 +32,37 @@ class TodoList extends Component {
     deleteItem(key) {
         var filteredItems = this.state.items.filter((item) => item.key !== key);
         this.setState({
-            items : filteredItems
+            items: filteredItems
         });
     }
 
     render() {
         return (
-            <div className="todoListMain">
-                <div className="header">
-                    <form onSubmit={this.addItem}>
-                        <input ref={(a) => this._inputElement = a}
-                            placeholder="enter task" />
-                        <button type="submit">add</button>
-                    </form>
-                </div>
-                <TodoItem entries={this.state.items}
-                    delete={this.deleteItem} />
-            </div>
+            <Row className=" mt-3 justify-content-center">
+                <Col xs={12} lg={4} >
+                    <Form onSubmit={this.addItem}>
+                        <Form.Row>
+                            <Form.Group as={Col} xs={12} md={11} >
+
+                                <Form.Control type="text" size="lg"
+                                    ref={(a) => this._inputElement = a}
+                                    placeholder="enter task"
+                                />
+                            </Form.Group>
+
+                            <Col xs={12} md={1} >
+                                <Button variant="info" size="lg" type="submit">add</Button>
+                            </Col>
+                        </Form.Row>
+                    </Form>
+                    <Row className="mt-3">
+                        <TodoItem entries={this.state.items}
+                            delete={this.deleteItem} />
+                    </Row>
+                </Col>
+
+            </Row>
+
         );
     }
 }
